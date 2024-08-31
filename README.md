@@ -13,6 +13,11 @@
     </a>
 </p>
 
+## About fork
+
+I added a naive way to support multiple channels per bot instance.
+Add comma separated list of VK domains to `VAR_VK_DOMAIN` variable.
+
 ## About
 
 Python script to automatically repost from VK community pages to Telegram channels or chats. Once the script is set up and running, it will check for new posts in VK every *N* seconds using VK API and, if there are any, parse and send them to Telegram.

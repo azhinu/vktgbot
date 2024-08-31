@@ -1,8 +1,28 @@
-version: '3'
-
 services:
-  app:
+  main:
+    image: vktgbot
     build: ../
     volumes:
       - ../logs:/code/logs
       - ../last_id.txt:/code/last_id.txt
+    env_file:
+      - main.env
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "10m"
+  bands:
+    image: vktgbot
+    volumes:
+      - ../logs:/code/logs
+      - ../last_id.txt:/code/last_id.txt
+    env_file:
+      - bands.env
+    restart: always
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "1"
+        max-size: "10m"

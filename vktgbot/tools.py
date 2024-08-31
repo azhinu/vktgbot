@@ -71,6 +71,8 @@ def add_urls_to_text(text: str, urls: list, videos: list) -> str:
                 text += f"\n{url}"
     return text
 
+def add_link_to_origin_text(text: str, domain: str, from_id: str, post_id: int) -> str:
+    return f'{text} \n\nСпизжено из <a href="{f"https://vk.com/{domain}?w=wall{from_id}_{post_id}"}">{domain}</a>'
 
 def split_text(text: str, fragment_size: int) -> list:
     fragments = []

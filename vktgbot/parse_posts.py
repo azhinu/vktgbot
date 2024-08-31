@@ -6,10 +6,10 @@ from loguru import logger
 
 from api_requests import get_video_url
 from config import REQ_VERSION, VK_TOKEN
-from tools import add_urls_to_text, prepare_text_for_html, prepare_text_for_reposts, reformat_vk_links
+from tools import add_link_to_origin_text, add_urls_to_text, prepare_text_for_html, prepare_text_for_reposts, reformat_vk_links
 
 
-def parse_post(item: dict, repost_exists: bool, item_type: str, group_name: str) -> dict:
+def parse_post(item: dict, repost_exists: bool, item_type: str, group_name: str, vk_domain: str) -> dict:
     text = prepare_text_for_html(item["text"])
     if repost_exists:
         text = prepare_text_for_reposts(text, item, item_type, group_name)
@@ -25,6 +25,7 @@ def parse_post(item: dict, repost_exists: bool, item_type: str, group_name: str)
         parse_attachments(item["attachments"], text, urls, videos, photos, docs)
 
     text = add_urls_to_text(text, urls, videos)
+    text = add_link_to_origin_text(text, vk_domain, item["from_id"], item["id"])
     logger.info(f"{item_type.capitalize()} parsing is complete.")
     return {"text": text, "photos": photos, "docs": docs}
 
